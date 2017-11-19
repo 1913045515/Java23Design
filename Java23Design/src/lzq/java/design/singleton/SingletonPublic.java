@@ -5,20 +5,20 @@ package lzq.java.design.singleton;
  * Created by linzhiqiang on 2017/11/16.
  */
 public class SingletonPublic {
-    private static volatile SingletonPublic instance = null;
+    private static final SingletonPublic instance = new SingletonPublic();
 
-    public SingletonPublic() {
-        System.out.println("create...........SingletonPrivate");
+    private SingletonPublic() {
+        if(instance!=null && this!=instance){
+            try {
+                throw new Exception("不能创建两个实例！");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static SingletonPublic getInstance() {
-        if (instance == null) {
-            synchronized (SingletonPublic.class) {
-                if (instance == null) {
-                    instance = new SingletonPublic();
-                }
-            }
-        }
+        System.out.println("create...........getInstance---function...");
         return instance;
     }
 
